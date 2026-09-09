@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>QrFlux · Labriolag</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #05070A;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: min(94%, 520px);
+      margin: auto;
+      padding: 30px 0;
+    }
+
+    h1 {
+      margin: 0;
+      color: #00E5FF;
+      font-size: 30px;
+    }
+
+    .subtitle {
+      color: #999;
+      margin: 5px 0 25px;
+    }
+
+    .card {
+      background: #11151b;
+      border: 1px solid #252c35;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-top: 14px;
+      margin-bottom: 6px;
+      color: #aaa;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      border: 1px solid #333;
+      background: #080b0f;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 16px;
+      padding: 14px;
+      border: 0;
+      border-radius: 10px;
+      background: #00E5FF;
+      color: #000;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: .85;
+    }
+
+    #qrcode {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #080b0f;
+      padding: 12px;
+      border-radius: 10px;
+      color: #aaa;
+      font-size: 12px;
+    }
+
+    .status {
+      margin-top: 15px;
+      padding: 14px;
+      border-radius: 10px;
+      background: #080b0f;
+      text-align: center;
+    }
+
+    .online {
+      color: #00FF88;
+    }
+
+    .error {
+      color: #ff5555;
+    }
+
+    .warning {
+      color: #FFCC00;
+    }
+
+    .footer {
+      text-align: center;
+      color: #555;
+      font-size: 12px;
+      margin-top: 25px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>QrFlux</h1>
+
+    <div class="subtitle">
+      Labriolag · LabChain
+    </div>
+
+
+    <!-- =========================
+         EMISSÃO
+    ========================== -->
+
+    <div class="card">
+
+      <h2>Emitir QRNota</h2>
+
+      <label for="valor">
+        Valor
+      </label>
+
+      <input
+        id="valor"
+        type="number"
+        min="1"
+        step="1"
+        placeholder="Ex: 50"
+      >
+
+      <label for="descricao">
+        Descrição
+      </label>
+
+      <input
+        id="descricao"
+        type="text"
+        placeholder="Ex: Compra"
+      >
+
+      <button id="btnEmitir">
+        EMITIR QR
+      </button>
+
+      <div id="qrcode"></div>
+
+      <pre id="resultado"></pre>
+
+    </div>
+
+
+    <!-- =========================
+         VALIDAÇÃO
+    ========================== -->
+
+    <div class="card">
+
+      <h2>Validar QRNota</h2>
+
+      <label for="inputQR">
+        Cole o JSON do QR
+      </label>
+
+      <input
+        id="inputQR"
+        type="text"
+        placeholder='{"id":"..."}'
+      >
+
+      <button id="btnValidar">
+        VALIDAR QR
+      </button>
+
+      <div
+        id="status"
+        class="status"
+      >
+        Aguardando validação...
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         STATUS
+    ========================== -->
+
+    <div class="card">
+
+      <h2>Status do sistema</h2>
+
+      <div
+        id="workerStatus"
+        class="status"
+      >
+        Verificando Worker...
+      </div>
+
+    </div>
+
+
+    <div class="footer">
+      LABRIOLAG · QrFlux · LabChain
+    </div>
+
+  </div>
+
+
+  <!-- JavaScript do QrFlux -->
+
+  <script src="./qrflux.js"></script>
+
+</body>
+</html>
